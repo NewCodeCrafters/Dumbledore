@@ -11,4 +11,6 @@ class Job(models.Model):
     jobtype = models.CharField(choices=SkillChoices.choices, blank=False)
     description = models.CharField(max_length=250, blank=False)
     pay = models.PositiveIntegerField(choices=SalaryRange.choices)
+    created_at = models.DateTimeField(blank=True, null=True)
+    
 

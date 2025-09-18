@@ -3,12 +3,9 @@ import os
 from pathlib import Path
 from urllib.parse import urlparse
 
-from decouple import config
-
+from decouple import config # pyright: ignore[reportMissingImports]
 
 tmp_postgres = urlparse(config("DATABASE_URL"))
-
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,7 +16,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("SECRET_KEY")
-
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,10 +33,12 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-CUSTOM_APPS= [
-    'apps.users',
-    'apps.job',
+
+
+CUSTOM_APPS = [
     'apps.base',
+    'apps.job',
+    'apps.users',
 ]
 
 THIRD_PARTY_APPS = [
@@ -51,7 +49,6 @@ THIRD_PARTY_APPS = [
 
 
 INSTALLED_APPS = DJANGO_APPS + CUSTOM_APPS + THIRD_PARTY_APPS
-
 
 
 MIDDLEWARE = [
@@ -69,8 +66,9 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')
-                 ],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates')
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -106,7 +104,9 @@ DATABASES = {
         },
 }
 
-AUTH_USER_MODEL = 'users.User'
+# CUSTOM USER
+AUTH_USER_MODEL = "users.User"
+
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
@@ -144,21 +144,23 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
+# Email configuration
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = config("EMAIL_HOST")
-EMAIL_PORT = config("EMAIL_PORT")
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
 EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
 EMAIL_USE_TLS = True
-EMAIL_USE_SSL= False # Don't use both TLS AND SSL
+EMAIL_USE_SSL = False  # Don't use both TLS and SSL
 
 
 REST_FRAMEWORK = {
@@ -206,3 +208,13 @@ SIMPLE_JWT = {
 }
 
 REST_USE_JWT = True
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Dumbledore API",
+    "DESCRIPTION": "Dumbledore Job Portal",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    "SWAGGER_UI_SETTINGS": {
+        'deepLinking': True,
+        'displayOperationId': True,
+    },
+}

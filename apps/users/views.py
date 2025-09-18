@@ -1,11 +1,11 @@
-from rest_framework import viewsets, status, generics, permissions
-from rest_framework.decorators import action
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework import viewsets, status, generics, permissions # type: ignore
+from rest_framework.decorators import action # type: ignore
+from rest_framework.response import Response # type: ignore
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser # type: ignore
+from rest_framework_simplejwt.tokens import RefreshToken # type: ignore
 
 from django.contrib.auth import get_user_model
-from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiResponse
+from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiResponse # type: ignore
 
 from apps.base.account_utils import send_otp_email, set_user_otp
 from apps.users.serializers import ChangePasswordSerializer, LoginSerializer, OTPVerificationSerializer, PasswordResetCompleteSerializer, PasswordResetRequestSerializer, UserCreateSerializer, UserDetailSerializer, UserSerializer, UserUpdateSerializer
@@ -181,7 +181,6 @@ class LogoutView(generics.GenericAPIView):
             status=status.HTTP_200_OK
         )
 
-
 @extend_schema(tags=["Authentication"])
 class ChangePasswordView(generics.GenericAPIView):
     serializer_class =ChangePasswordSerializer
@@ -222,6 +221,7 @@ class EmailVerificationView(generics.GenericAPIView):
         # You'll need to modify this to get the user differently since request.user won't be available
         # Option 1: Get user by email from query params
         email = request.query_params.get('email')
+         # Option 2: Get user by ID from query params
         if not email:
             return Response({"detail": "Email is required."}, status=status.HTTP_400_BAD_REQUEST)
         

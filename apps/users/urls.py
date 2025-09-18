@@ -1,5 +1,5 @@
 from django.urls import include, path
-from rest_framework_routers import DefaultRouter
+from rest_framework.routers import DefaultRouter # type: ignore
 
 from apps.users.views import (
     UserViewSet,

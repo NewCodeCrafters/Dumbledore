@@ -4,12 +4,17 @@ class UserTypeChoices(models.TextChoices):
     USER = "user", "User"
     EMPLOYER = "employer", "Employer"
     JOBSEEKER= "jobseeker", "Jobseeker"
+    ADMIN = "admin", "Admin"
 
 
 class StatusChoices(models.TextChoices):
     DEFAULT = "default", "Default"
     ACTIVE = "active", "Active"
     INACTIVE = "inactive", "Inactive"
+    PENDING = "pending", "Pending"
+    SUSPENDED = "suspended", "Suspended"
+    DELETED = "deleted", "Deleted"
+    BLOCKED = "blocked", "Blocked"
 
 
 class SkillChoices(models.TextChoices):

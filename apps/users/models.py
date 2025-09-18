@@ -9,6 +9,7 @@ from .managers import UserManager
 class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     user_type = models.CharField(max_length=20, choices=UserTypeChoices.choices, default=UserTypeChoices.USER)
     email = models.EmailField(unique=True)
+    full_name= models.CharField(max_length=200, blank=True, null=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     otp = models.CharField(max_length=6, blank=True, null=True)
