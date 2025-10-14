@@ -8,7 +8,8 @@ from apps.users.views import (
     ChangePasswordView,
     EmailVerificationView,
     PasswordRequestResetView,
-    PasswordResetConfirmView,       
+    PasswordResetConfirmView, 
+    Welcome_page,
 )
 
 router = DefaultRouter()
@@ -22,4 +23,5 @@ urlpatterns = [
     path("verify/email/", EmailVerificationView.as_view(), name="email_verification"),
     path("password-reset/request/", PasswordRequestResetView.as_view(), name="password_reset_request"),
     path("password-reset/confirm/", PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
+    path('', Welcome_page, name='welcome_page'),
 ]

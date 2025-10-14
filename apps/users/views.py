@@ -4,6 +4,7 @@ from rest_framework.response import Response # type: ignore
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser # type: ignore
 from rest_framework_simplejwt.tokens import RefreshToken # type: ignore
 
+from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiResponse # type: ignore
 
@@ -297,3 +298,6 @@ class PasswordResetConfirmView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         result = serializer.save()
         return Response(result, status=status.HTTP_200_OK)
+    
+def Welcome_page(request):
+    return render(request, 'landingpages/welcomepage.html')

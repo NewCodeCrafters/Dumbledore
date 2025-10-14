@@ -31,5 +31,4 @@ urlpatterns = [
     path('api/schema/redoc', SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
     path('api/auth/', include('apps.users.urls')),
     path('api/jobs/', include('apps.job.urls')),
-    path('', include('apps.job.urls')),
 ]

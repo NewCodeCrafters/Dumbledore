@@ -1,4 +1,4 @@
-from django.shortcuts import render
+
 
 # Create your views here.
 from rest_framework import viewsets
@@ -9,5 +9,3 @@ class JobViewSet(viewsets.ModelViewSet):
     queryset = Job.objects.all()
     serializer_class = JobSerializer
 
-def welcome_page(request):
-    return render(request, 'landingpages/welcomepage.html')
