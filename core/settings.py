@@ -5,7 +5,6 @@ from urllib.parse import urlparse
 
 from decouple import config # pyright: ignore[reportMissingImports]
 
-tmp_postgres = urlparse(config("DATABASE_URL"))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +19,8 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config("ALLOWED_HOSTS").split(",")
+
 
 
 # Application definition
@@ -94,14 +94,18 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # }
 
 DATABASES = {
-    'default': {
+    "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": tmp_postgres.path.replace(b"/", b"") if isinstance(tmp_postgres.path, bytes) else tmp_postgres.path.replace("/", ""),
-        "USER": tmp_postgres.username,
-        "PASSWORD": tmp_postgres.password,
-        "HOST": tmp_postgres.hostname,
-        "PORT": 5432,
-        },
+        "NAME": config("SQL_DATABASE"),
+        "USER": config("SQL_USER"),
+        "PASSWORD": config("SQL_PASSWORD"),
+        "HOST": config("SQL_HOST", "localhost"),
+        "PORT": config("SQL_PORT", "5432"),
+        # "OPTIONS": {
+        #     "sslmode": "require",
+        #     "sslrootcert": "global-bundle.pem",  # Path to your RDS CA certificate
+        # },
+    }
 }
 
 # CUSTOM USER

@@ -34,13 +34,18 @@ class UserCreateSerializer(serializers.ModelSerializer):
         fields = (
             "email", "first_name", "last_name", "password", "confirm_password"
         )
-        extra_kwargs = {"user_type": {"default": UserTypeChoices.USER}}
-        
+        extra_kwargs = {
+            "user_type": {"default": UserTypeChoices.USER},
+            "is_active": False 
+            }# Users are inactive until email verification},
+               
 
-    def validate(self, attrs):
-        if attrs['password'] != attrs['confirm_password']:
-            raise serializers.ValidationError("Passwords don't match")
-        return attrs
+        def validate_email(self, value):
+            if not email_validator(value):
+                raise serializers.ValidationError("Invalid email format.")
+        
+            return value.lower()
+    
     
     def validate(self, data):
         if data['password'] != data['confirm_password']:
@@ -53,7 +58,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
         return data
         
     def create(self, validated_data):
-        validated_data.pop("password_confirm", None)
+        validated_data.pop("confirm_password", None)
         validated_data['is_active']= False
 
         user = User.objects.create_user(

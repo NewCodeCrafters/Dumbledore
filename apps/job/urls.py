@@ -1,10 +1,11 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter # type: ignore
-from .views import JobViewSet
+from .views import JobViewSet, welcome_page
 
 router = DefaultRouter()
 router.register(r'jobs', JobViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('router/', include(router.urls)),
+    path('', welcome_page, name='welcome_page'),
 ]

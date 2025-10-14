@@ -193,7 +193,7 @@ def send_otp_email(user_id: int, otp: str, purpose: str):
             "purpose": purpose,
             "expiry": "5 minutes"    
         }
-        template_path = "emails/otp_email.html"
+        template_path = "emails/otp-email.html"
         html_message = render_to_string(template_path, context)
         
         # ✅ Correct way: Import and use EmailMessage class

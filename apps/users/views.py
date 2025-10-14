@@ -209,7 +209,7 @@ class EmailVerificationView(generics.GenericAPIView):
     serializer_class = OTPVerificationSerializer
     
     @extend_schema(
-        request=None,
+        request=OTPVerificationSerializer,
         responses={
             200: OpenApiResponse(description="OTP Sent successfully"),
             400: OpenApiResponse(description="Bad Request"),
